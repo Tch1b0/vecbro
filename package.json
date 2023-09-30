@@ -1,0 +1,19 @@
+{
+    "name": "vecbro",
+    "version": "1.0.0",
+    "description": "",
+    "main": "./dist/index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "vite build",
+        "dev": "vite dev"
+    },
+    "author": "",
+    "license": "MIT",
+    "devDependencies": {
+        "@types/three": "^0.156.0",
+        "three": "^0.157.0",
+        "typescript": "^5.2.2",
+        "vite": "^4.4.9"
+    }
+}
