@@ -1,59 +1,43 @@
 import * as THREE from "three";
+import { animate, clearFns, drawBox, drawFn } from "./rendering";
 
-const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(
-    75,
-    window.innerWidth / window.innerHeight,
-    0.1,
-    1000
-);
-camera.position.y += 3;
+drawBox(5, 0.05, 0.05);
+drawBox(0.05, 5, 0.05);
+drawBox(0.05, 0.05, 5);
 
-const renderer = new THREE.WebGLRenderer();
-renderer.setSize(window.innerWidth, window.innerHeight);
-document.body.appendChild(renderer.domElement);
-
-function drawLine(width: number, height: number, depth: number) {
-    const geometry = new THREE.BoxGeometry(width, height, depth);
-    const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
-    const cube = new THREE.Mesh(geometry, material);
-    scene.add(cube);
-}
-
-function drawFn(sup: THREE.Vector3, dir: THREE.Vector3) {
-    const a = dir.clone().multiplyScalar(-100).add(sup);
-    const b = dir.clone().add(sup);
-    const c = dir.clone().multiplyScalar(100).add(sup);
-    const points = [a, b, c];
-    console.log(points);
-
-    const geometry = new THREE.BufferGeometry().setFromPoints(points);
-    const material = new THREE.LineBasicMaterial({ color: 0xfc02a2 });
-    const m = new THREE.Line(geometry, material);
-
-    scene.add(m);
-}
-
-drawLine(5, 0.05, 0.05);
-drawLine(0.05, 5, 0.05);
-drawLine(0.05, 0.05, 5);
-
-drawFn(new THREE.Vector3(1, 0, 0), new THREE.Vector3(1, 1, 1));
-drawFn(new THREE.Vector3(1, 3, 0), new THREE.Vector3(-1.5, 2, -1));
-
-camera.position.z = 5;
-
-const CENTER = new THREE.Vector3(0, 0, 0);
-const SPEED = 0.001;
-let t = 0;
-
-function animate() {
-    requestAnimationFrame(animate);
-    renderer.render(scene, camera);
-    camera.position.x = CENTER.x + 6 * Math.cos(SPEED * t);
-    camera.position.z = CENTER.z + 6 * Math.sin(SPEED * t);
-    camera.lookAt(CENTER);
-
-    t++;
-}
 animate();
+
+const $: (v: string) => any = (v: string) => document.getElementById(v)!;
+
+const inputs: HTMLInputElement[] = [
+    $("vecAx1"),
+    $("vecAx2"),
+    $("vecAx3"),
+    $("vecBx1"),
+    $("vecBx2"),
+    $("vecBx3"),
+];
+
+function renderFunc() {
+    const a = new THREE.Vector3(
+        Number(inputs[0].value),
+        Number(inputs[1].value),
+        Number(inputs[2].value)
+    );
+
+    const b = new THREE.Vector3(
+        Number(inputs[3].value),
+        Number(inputs[4].value),
+        Number(inputs[5].value)
+    );
+
+    drawFn(a, b);
+}
+
+$("drawBtn").addEventListener("click", (_: any) => {
+    renderFunc();
+});
+
+$("clearBtn").addEventListener("click", (_: any) => {
+    clearFns();
+});
