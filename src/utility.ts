@@ -13,7 +13,7 @@ export function generateBrightHex(): number {
         a = Math.floor(Math.random() * 0xff);
         b = Math.floor(Math.random() * 0xff);
         c = Math.floor(Math.random() * 0xff);
-    } while (a + b + c < 0x30);
+    } while (a + b + c < 0xa0);
     return hexToNum(`${numToHex(a)}${numToHex(b)}${numToHex(c)}`);
 }
 
