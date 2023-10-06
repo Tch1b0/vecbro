@@ -1,11 +1,12 @@
 import * as THREE from "three";
-import { animate, clearFns, drawBox, drawFn } from "./rendering";
+import { animate, clearFns, drawBox, drawFn, drawGrid } from "./rendering";
 
 drawBox(5, 0.05, 0.05);
 drawBox(0.05, 5, 0.05);
 drawBox(0.05, 0.05, 5);
 
 animate();
+drawGrid();
 
 const $: (v: string) => any = (v: string) => document.getElementById(v)!;
 

@@ -16,3 +16,9 @@ export function generateBrightHex(): number {
     } while (a + b + c < 0x30);
     return hexToNum(`${numToHex(a)}${numToHex(b)}${numToHex(c)}`);
 }
+
+export function sleep(time: number): Promise<void> {
+    return new Promise((resolve, _) => {
+        setTimeout(resolve, time);
+    });
+}
