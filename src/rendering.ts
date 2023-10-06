@@ -47,6 +47,7 @@ let t = 0;
 export function animate() {
     requestAnimationFrame(animate);
     renderer.render(scene, camera);
+    renderer.setPixelRatio(devicePixelRatio);
     camera.position.x = CENTER.x + 6 * Math.cos(SPEED * t);
     camera.position.z = CENTER.z + 6 * Math.sin(SPEED * t);
     camera.lookAt(CENTER);
