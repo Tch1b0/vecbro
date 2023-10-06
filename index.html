@@ -4,6 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>VecBro</title>
+        <link rel="shortcut icon" href="./favicon.ico" type="image/x-icon" />
         <script type="module" src="/src/main.ts"></script>
         <style>
             body > * {
@@ -12,6 +13,8 @@
                 left: 0;
                 background-color: #030303;
                 color: snow;
+                font-weight: bolder;
+                font-family: sans-serif;
             }
 
             button {
@@ -52,6 +55,11 @@
                 display: flex;
                 flex-direction: column;
             }
+
+            .formula-middle {
+                margin-left: 5pt;
+                margin-right: 5pt;
+            }
         </style>
     </head>
     <body>
@@ -61,7 +69,7 @@
                 <input type="number" value="0" id="vecAx2" />
                 <input type="number" value="0" id="vecAx3" />
             </div>
-            <p>+ r *</p>
+            <p class="formula-middle">+ r &times;</p>
             <div class="vec">
                 <input type="number" value="0" id="vecBx1" />
                 <input type="number" value="0" id="vecBx2" />

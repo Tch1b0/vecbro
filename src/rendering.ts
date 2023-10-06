@@ -10,7 +10,8 @@ export const camera = new THREE.PerspectiveCamera(
     0.1,
     1000
 );
-camera.position.y += 3;
+camera.position.y = 3;
+camera.position.z = 5;
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
@@ -22,6 +23,21 @@ const controls = new OrbitControls(camera, renderer.domElement);
 const whiteMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
 
 let funcs: THREE.Line[] = [];
+
+export function clearFns() {
+    for (const fn of funcs) {
+        scene.remove(fn);
+    }
+    funcs = [];
+}
+
+export function animate() {
+    requestAnimationFrame(animate);
+    renderer.render(scene, camera);
+    controls.update();
+}
+
+// -=[ Drawing ]=-
 
 export function drawBox(width: number, height: number, depth: number) {
     const geometry = new THREE.BoxGeometry(width, height, depth);
@@ -60,7 +76,7 @@ export function drawFn(sup: THREE.Vector3, dir: THREE.Vector3) {
     funcs.push(lineMesh);
 }
 
-export async function drawLine(from: THREE.Vector3, to: THREE.Vector3) {
+export function drawLine(from: THREE.Vector3, to: THREE.Vector3) {
     const geometry = new THREE.BufferGeometry().setFromPoints([from, to]);
     const material = new THREE.LineBasicMaterial({
         color: 0xcdcdcd,
@@ -73,21 +89,20 @@ export async function drawLine(from: THREE.Vector3, to: THREE.Vector3) {
     scene.add(m);
 }
 
-export async function drawGrid() {
-    const DELAY = 25;
+export async function drawGrid(delay: number = 25) {
     for (let i = 0; i <= 10; i++) {
         drawLine(
             new THREE.Vector3(-5 + i, 0, -5),
             new THREE.Vector3(-5 + i, 0, 5)
         );
-        await sleep(DELAY);
+        await sleep(delay);
     }
     for (let i = 0; i <= 10; i++) {
         drawLine(
             new THREE.Vector3(0, -5, -5 + i),
             new THREE.Vector3(0, 5, -5 + i)
         );
-        await sleep(DELAY);
+        await sleep(delay);
     }
 
     for (let i = 0; i <= 10; i++) {
@@ -95,53 +110,28 @@ export async function drawGrid() {
             new THREE.Vector3(0, -5 + i, -5),
             new THREE.Vector3(0, -5 + i, 5)
         );
-        await sleep(DELAY);
+        await sleep(delay);
     }
     for (let i = 0; i <= 10; i++) {
         drawLine(
             new THREE.Vector3(-5, 0, -5 + i),
             new THREE.Vector3(5, 0, -5 + i)
         );
-        await sleep(DELAY);
+        await sleep(delay);
     }
 
-    // x3
     for (let i = 0; i <= 10; i++) {
         drawLine(
             new THREE.Vector3(-5 + i, -5, 0),
             new THREE.Vector3(-5 + i, 5, 0)
         );
-        await sleep(DELAY);
+        await sleep(delay);
     }
     for (let i = 0; i <= 10; i++) {
         drawLine(
             new THREE.Vector3(-5, -5 + i, 0),
             new THREE.Vector3(5, -5 + i, 0)
         );
-        await sleep(DELAY);
+        await sleep(delay);
     }
-}
-
-camera.position.z = 5;
-
-const CENTER = new THREE.Vector3(0, 0, 0);
-const SPEED = 0.001;
-let t = 0;
-
-export function animate() {
-    requestAnimationFrame(animate);
-    renderer.render(scene, camera);
-    // camera.position.x = CENTER.x + 6 * Math.cos(SPEED * t);
-    // camera.position.z = CENTER.z + 6 * Math.sin(SPEED * t);
-    // camera.lookAt(CENTER);
-    controls.update();
-
-    // t++;
-}
-
-export function clearFns() {
-    for (const fn of funcs) {
-        scene.remove(fn);
-    }
-    funcs = [];
 }
