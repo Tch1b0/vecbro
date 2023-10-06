@@ -19,14 +19,29 @@ renderer.setClearColor("#232323");
 document.body.appendChild(renderer.domElement);
 
 const controls = new OrbitControls(camera, renderer.domElement);
+const whiteMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
 
 let funcs: THREE.Line[] = [];
 
 export function drawBox(width: number, height: number, depth: number) {
     const geometry = new THREE.BoxGeometry(width, height, depth);
-    const material = new THREE.MeshBasicMaterial({ color: 0xffffff });
-    const cube = new THREE.Mesh(geometry, material);
+    const cube = new THREE.Mesh(geometry, whiteMaterial);
+
     scene.add(cube);
+}
+
+export function drawCone(
+    position: THREE.Vector3,
+    rotationAxis: THREE.Vector3,
+    rotationDegrees: number
+) {
+    const geometry = new THREE.ConeGeometry(0.1, 1);
+    const cone = new THREE.Mesh(geometry, whiteMaterial);
+
+    cone.position.set(position.x, position.y, position.z);
+    cone.setRotationFromAxisAngle(rotationAxis, rotationDegrees);
+
+    scene.add(cone);
 }
 
 export function drawFn(sup: THREE.Vector3, dir: THREE.Vector3) {
@@ -39,10 +54,10 @@ export function drawFn(sup: THREE.Vector3, dir: THREE.Vector3) {
     const material = new THREE.LineBasicMaterial({
         color: generateBrightHex(),
     });
-    const m = new THREE.Line(geometry, material);
+    const lineMesh = new THREE.Line(geometry, material);
 
-    scene.add(m);
-    funcs.push(m);
+    scene.add(lineMesh);
+    funcs.push(lineMesh);
 }
 
 export async function drawLine(from: THREE.Vector3, to: THREE.Vector3) {

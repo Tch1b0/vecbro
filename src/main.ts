@@ -1,9 +1,20 @@
 import * as THREE from "three";
-import { animate, clearFns, drawBox, drawFn, drawGrid } from "./rendering";
+import {
+    animate,
+    clearFns,
+    drawBox,
+    drawCone,
+    drawFn,
+    drawGrid,
+} from "./rendering";
 
 drawBox(5, 0.05, 0.05);
 drawBox(0.05, 5, 0.05);
 drawBox(0.05, 0.05, 5);
+
+drawCone(new THREE.Vector3(2.5, 0, 0), new THREE.Vector3(0, 0, 1), 4.7);
+drawCone(new THREE.Vector3(0, 2.5, 0), new THREE.Vector3(0, 1, 0), 4.7);
+drawCone(new THREE.Vector3(0, 0, 2.5), new THREE.Vector3(1, 0, 0), -4.7);
 
 animate();
 drawGrid();
