@@ -1,4 +1,5 @@
 import * as THREE from "three";
+import { generateBrightHex } from "./utility";
 
 export const scene = new THREE.Scene();
 export const camera = new THREE.PerspectiveCamera(
@@ -11,7 +12,7 @@ camera.position.y += 3;
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setSize(window.innerWidth, window.innerHeight);
-renderer.setClearColor("#030303");
+renderer.setClearColor("#232323");
 document.body.appendChild(renderer.domElement);
 
 export function drawBox(width: number, height: number, depth: number) {
@@ -31,7 +32,9 @@ export function drawFn(sup: THREE.Vector3, dir: THREE.Vector3) {
     console.log(points);
 
     const geometry = new THREE.BufferGeometry().setFromPoints(points);
-    const material = new THREE.LineBasicMaterial({ color: 0xfc02a2 });
+    const material = new THREE.LineBasicMaterial({
+        color: generateBrightHex(),
+    });
     const m = new THREE.Line(geometry, material);
 
     scene.add(m);
