@@ -63,10 +63,11 @@ export function drawFn(sup: THREE.Vector3, dir: THREE.Vector3) {
 export async function drawLine(from: THREE.Vector3, to: THREE.Vector3) {
     const geometry = new THREE.BufferGeometry().setFromPoints([from, to]);
     const material = new THREE.LineBasicMaterial({
-        color: 0xcdcdcd1,
-        alphaTest: 0.1,
+        color: 0xcdcdcd,
+        opacity: 0.5,
         transparent: true,
     });
+
     const m = new THREE.Line(geometry, material);
 
     scene.add(m);
