@@ -3,6 +3,8 @@ import { generateBrightHex, sleep } from "./utility";
 // @ts-ignore
 import { OrbitControls } from "three/addons/controls/OrbitControls";
 
+// -=[ three.js setup ]=-
+
 export const scene = new THREE.Scene();
 export const camera = new THREE.PerspectiveCamera(
     75,
@@ -23,6 +25,8 @@ const controls = new OrbitControls(camera, renderer.domElement);
 const whiteMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
 
 let funcs: THREE.Line[] = [];
+
+// -=[ Scene/Renderer Functions ]=-
 
 export function clearFns() {
     for (const fn of funcs) {
