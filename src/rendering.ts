@@ -3,7 +3,7 @@ import { generateBrightHex, sleep } from "./utility";
 // @ts-ignore
 import { OrbitControls } from "three/addons/controls/OrbitControls";
 
-// -=[ three.js setup ]=-
+// -=[ three.js Setup ]=-
 
 export const scene = new THREE.Scene();
 export const camera = new THREE.PerspectiveCamera(

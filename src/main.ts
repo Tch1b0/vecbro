@@ -9,6 +9,8 @@ import {
 } from "./rendering";
 
 const $: (v: string) => any = (v: string) => document.getElementById(v)!;
+$("drawBtn").addEventListener("click", (_: any) => renderFunc());
+$("clearBtn").addEventListener("click", (_: any) => clearFns());
 
 const inputs: HTMLInputElement[] = [
     $("vecAx1"),
@@ -35,13 +37,7 @@ function renderFunc() {
     drawFn(a, b);
 }
 
-$("drawBtn").addEventListener("click", (_: any) => {
-    renderFunc();
-});
-
-$("clearBtn").addEventListener("click", (_: any) => {
-    clearFns();
-});
+// -=[ Drawing ]=-
 
 // draw x direction
 drawBox(5, 0.05, 0.05);
