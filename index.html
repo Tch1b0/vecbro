@@ -71,6 +71,20 @@
     </head>
     <body>
         <div class="input-area">
+            <div
+                style="
+                    align-items: center;
+                    justify-content: center;
+                    display: flex;
+                    margin-right: 5pt;
+                "
+            >
+                <select name="Type" id="vectype">
+                    <option value="line">g</option>
+                    <option value="plane">E</option>
+                </select>
+                :
+            </div>
             <div class="vec">
                 <input type="number" value="0" id="vecAx1" />
                 <input type="number" value="0" id="vecAx2" />
@@ -81,6 +95,14 @@
                 <input type="number" value="0" id="vecBx1" />
                 <input type="number" value="0" id="vecBx2" />
                 <input type="number" value="0" id="vecBx3" />
+            </div>
+            <p class="formula-middle" condition="plane">+ s &times;</p>
+            <div condition="plane">
+                <div class="vec">
+                    <input type="number" value="0" id="vecCx1" />
+                    <input type="number" value="0" id="vecCx2" />
+                    <input type="number" value="0" id="vecCx3" />
+                </div>
             </div>
             <div class="vec">
                 <button id="drawBtn">Draw</button>
