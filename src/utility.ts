@@ -46,18 +46,13 @@ export function planeRotationFromVecs(
 }
 
 export function planeFunc(
-    sup: THREE.Vector3,
     dir1: THREE.Vector3,
     dir2: THREE.Vector3
 ): (r: number, s: number) => THREE.Vector3 {
-    const a = sup.clone(),
-        b = dir1.clone(),
+    const b = dir1.clone(),
         c = dir2.clone();
     return (r: number, s: number) => {
-        const x = a
-            .clone()
-            .add(b.clone().multiplyScalar(r))
-            .add(c.clone().multiplyScalar(s));
+        const x = b.clone().multiplyScalar(r).add(c.clone().multiplyScalar(s));
         return x;
     };
 }

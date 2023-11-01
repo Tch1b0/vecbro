@@ -1,12 +1,5 @@
 import * as THREE from "three";
-import {
-    deg2rad,
-    generateBrightHex,
-    planeFunc,
-    planeRotationFromVecs,
-    sleep,
-    vec,
-} from "./utility";
+import { generateBrightHex, planeFunc, sleep, vec } from "./utility";
 // @ts-ignore
 import { OrbitControls } from "three/addons/controls/OrbitControls";
 
@@ -92,7 +85,7 @@ export function drawPlane(
     dir1: THREE.Vector3,
     dir2: THREE.Vector3
 ) {
-    const f = planeFunc(sup, dir1, dir2);
+    const f = planeFunc(dir1, dir2);
 
     const vertices: number[] = [
         ...f(-1, -1).toArray(),
@@ -116,6 +109,7 @@ export function drawPlane(
     });
 
     const m = new THREE.Mesh(geometry, material);
+    m.position.set(sup.x, sup.y, sup.z);
 
     scene.add(m);
     funcs.push(m);
