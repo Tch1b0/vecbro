@@ -80,6 +80,7 @@
                 "
             >
                 <select name="Type" id="vectype">
+                    <option value="point">P</option>
                     <option value="line">g</option>
                     <option value="plane">E</option>
                 </select>
@@ -90,13 +91,19 @@
                 <input type="number" value="0" id="vecAx2" />
                 <input type="number" value="0" id="vecAx3" />
             </div>
-            <p class="formula-middle">+ r &times;</p>
-            <div class="vec">
-                <input type="number" value="0" id="vecBx1" />
-                <input type="number" value="0" id="vecBx2" />
-                <input type="number" value="0" id="vecBx3" />
+            <p class="formula-middle" condition="line" needs="point">
+                + r &times;
+            </p>
+            <div condition="line">
+                <div class="vec">
+                    <input type="number" value="0" id="vecBx1" />
+                    <input type="number" value="0" id="vecBx2" />
+                    <input type="number" value="0" id="vecBx3" />
+                </div>
             </div>
-            <p class="formula-middle" condition="plane">+ s &times;</p>
+            <p class="formula-middle" condition="plane" needs="line">
+                + s &times;
+            </p>
             <div condition="plane">
                 <div class="vec">
                     <input type="number" value="0" id="vecCx1" />
