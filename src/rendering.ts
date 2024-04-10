@@ -41,27 +41,21 @@ export function animate() {
     controls.update();
 }
 
-// -=[ Drawing ]=-
+// -=[ Drawing Functions ]=-
 
-export function drawBox(width: number, height: number, depth: number) {
-    const geometry = new THREE.BoxGeometry(width, height, depth);
-    const cube = new THREE.Mesh(geometry, whiteMaterial);
+export function drawPoint(pos: THREE.Vector3) {
+    const radius = 0.05;
+    const geometry = new THREE.SphereGeometry(radius);
+    const material = new THREE.MeshBasicMaterial({
+        color: generateBrightHex(),
+    });
 
-    scene.add(cube);
-}
+    const mesh = new THREE.Mesh(geometry, material);
+    mesh.position.set(pos.x, pos.y, pos.z);
 
-export function drawCone(
-    position: THREE.Vector3,
-    rotationAxis: THREE.Vector3,
-    rotationDegrees: number
-) {
-    const geometry = new THREE.ConeGeometry(0.1, 1);
-    const cone = new THREE.Mesh(geometry, whiteMaterial);
-
-    cone.position.set(position.x, position.y, position.z);
-    cone.setRotationFromAxisAngle(rotationAxis, rotationDegrees);
-
-    scene.add(cone);
+    scene.add(mesh);
+    funcs.push(mesh);
+    console.log("[Rendering] Sphere rendered.");
 }
 
 export function drawFn(sup: THREE.Vector3, dir: THREE.Vector3) {
@@ -78,6 +72,7 @@ export function drawFn(sup: THREE.Vector3, dir: THREE.Vector3) {
 
     scene.add(lineMesh);
     funcs.push(lineMesh);
+    console.log("[Rendering] Line rendered.");
 }
 
 export function drawPlane(
@@ -113,6 +108,30 @@ export function drawPlane(
 
     scene.add(m);
     funcs.push(m);
+    console.log("[Rendering] Plane rendered.");
+}
+
+// -=[ Drawing Grid ]=-
+
+export function drawBox(width: number, height: number, depth: number) {
+    const geometry = new THREE.BoxGeometry(width, height, depth);
+    const cube = new THREE.Mesh(geometry, whiteMaterial);
+
+    scene.add(cube);
+}
+
+export function drawCone(
+    position: THREE.Vector3,
+    rotationAxis: THREE.Vector3,
+    rotationDegrees: number
+) {
+    const geometry = new THREE.ConeGeometry(0.1, 1);
+    const cone = new THREE.Mesh(geometry, whiteMaterial);
+
+    cone.position.set(position.x, position.y, position.z);
+    cone.setRotationFromAxisAngle(rotationAxis, rotationDegrees);
+
+    scene.add(cone);
 }
 
 export function drawLine(from: THREE.Vector3, to: THREE.Vector3) {

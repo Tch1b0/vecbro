@@ -6,6 +6,7 @@ import {
     drawFn,
     drawGrid,
     drawPlane,
+    drawPoint,
 } from "./rendering";
 import { vec } from "./utility";
 
@@ -30,54 +31,84 @@ const vectypeSelection: HTMLSelectElement = $("vectype");
 
 const vectypeChangeCallback = () => {
     const v = vectypeSelection.value;
-    // select every element where the `condition="plane"` property exists
-    const els = $$('[condition="plane"]');
 
-    const shouldBeDisplayed = v === "plane";
+    const toggleVisibility = (name: string, selected: string) => {
+        // select every element where the `condition="plane"` property exists
+        const els = $$(`[condition="${name}"]`);
+        const shouldBeDisplayed = selected === name;
 
-    for (const el of els) {
-        el.style.display = shouldBeDisplayed ? "block" : "none";
-    }
+        for (const el of els) {
+            if (shouldBeDisplayed) {
+                el.style.display = "block";
+                const needs = el.getAttribute("needs");
+                console.log(needs);
+                if (needs !== null) {
+                    toggleVisibility(needs, needs);
+                }
+            } else {
+                el.style.display = "none";
+            }
+        }
+    };
+
+    toggleVisibility("point", v);
+    toggleVisibility("line", v);
+    toggleVisibility("plane", v);
 };
 vectypeSelection.addEventListener("change", (e) => vectypeChangeCallback());
 
 vectypeChangeCallback();
 
 function renderFunc() {
-    if (vectypeSelection.value === "line") {
-        const a = vec(
-            Number(inputs[0].value),
-            Number(inputs[1].value),
-            Number(inputs[2].value)
-        );
+    switch (vectypeSelection.value) {
+        case "point": {
+            const a = vec(
+                Number(inputs[0].value),
+                Number(inputs[1].value),
+                Number(inputs[2].value)
+            );
 
-        const b = vec(
-            Number(inputs[3].value),
-            Number(inputs[4].value),
-            Number(inputs[5].value)
-        );
+            drawPoint(a);
+            break;
+        }
+        case "line": {
+            const a = vec(
+                Number(inputs[0].value),
+                Number(inputs[1].value),
+                Number(inputs[2].value)
+            );
 
-        drawFn(a, b);
-    } else {
-        const a = vec(
-            Number(inputs[0].value),
-            Number(inputs[1].value),
-            Number(inputs[2].value)
-        );
+            const b = vec(
+                Number(inputs[3].value),
+                Number(inputs[4].value),
+                Number(inputs[5].value)
+            );
 
-        const b = vec(
-            Number(inputs[3].value),
-            Number(inputs[4].value),
-            Number(inputs[5].value)
-        );
+            drawFn(a, b);
+            break;
+        }
+        case "plane": {
+            const a = vec(
+                Number(inputs[0].value),
+                Number(inputs[1].value),
+                Number(inputs[2].value)
+            );
 
-        const c = vec(
-            Number(inputs[6].value),
-            Number(inputs[7].value),
-            Number(inputs[8].value)
-        );
+            const b = vec(
+                Number(inputs[3].value),
+                Number(inputs[4].value),
+                Number(inputs[5].value)
+            );
 
-        drawPlane(a, b, c);
+            const c = vec(
+                Number(inputs[6].value),
+                Number(inputs[7].value),
+                Number(inputs[8].value)
+            );
+
+            drawPlane(a, b, c);
+            break;
+        }
     }
 }
 
